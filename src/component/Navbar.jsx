@@ -7,6 +7,9 @@ function navbar() {
     <Flex >
       <Text color='white' fontSize='1.7rem' fontWeight="bold"  fontFamily='roboto' >Flipkart</Text>
     </Flex>
+    <Flex >
+      <Text color='white' fontSize='1.4rem' borderLeft='2px solid white' pl='5px'   fontFamily='roboto' >Product</Text>
+    </Flex>
     <Flex align='center' w='40%' pos='relative' >
     <Input bg='white' variant='outline' size='md'  boxShadow='lg' placeholder='Search for Products...' />
     <Search2Icon boxSize='25px' color='grey' bg='white'  right='10px' pos='absolute' />

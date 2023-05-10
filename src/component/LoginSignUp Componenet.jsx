@@ -29,10 +29,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
   return (
    <Flex flexDirection='row'>
-    <Flex flexDirection='column' rowGap='10px' bg='royalBlue'>
-    <Text fontWeight='bold' fontSize='1.5rem' color='white' >Login</Text>
-    <Text color='white' fontSize='1.2rem'>
-Get access to your Orders, Wishlist and Recommendations</Text>
+    
+    <Flex flexDirection='column' rowGap='10px' w='50%' p='10px' bg='royalBlue'>
+    <Text color='white' mt='20px' fontSize='1.2rem'>Looks like you're new here</Text>
+    <Text color='white' fontSize='1.2rem'>sign up with your email to get started shopping</Text>
 
       
     </Flex>
@@ -68,7 +68,8 @@ Get access to your Orders, Wishlist and Recommendations</Text>
       <Button
       align='center'
             mt={4}
-            colorScheme='teal'
+            bg='#fb641b'
+            color='white'
             // isLoading={props.isSubmitting}
             type='submit'
           >
@@ -93,16 +94,16 @@ export function Login() {
   const isError = false;
 
   return (
-   <Flex flexDirection='row' h='33em'  >
-    <Flex flexDirection='column' rowGap='10px' bg='royalBlue'>
-    <Text color='white' mt='20px' fontSize='1.2rem'>Looks like you're new here</Text>
-    <Text color='white' fontSize='1.2rem'>sign up with your email to get started shopping</Text>
+   <Flex flexDirection='row' h='28.5em'  >
+    <Flex flexDirection='column' rowGap='10px' p='10px' w='50%' bg='royalBlue'>
+    <Text fontWeight='bold' fontSize='1.4rem' color='white' >Login</Text>
+    <Text color='white' fontSize='1.2rem'>
+Get access to your Orders, Wishlist and Recommendations</Text>
 
       
     </Flex>
      <form onSubmit={handleRegisterForm}>
-    <Text color='royalBlue' fontWeight='medium' fontSize='1.6rem' mb='30px' textAlign='center'>Register</Text>
-
+     <Text color='royalBlue' fontWeight='medium' fontSize='1.6rem' mb='30px' textAlign='center'>Login</Text>
       <FormControl isRequired isInvalid={isError}>
         <Input type="email" placeholder='abc@xyz.com' />
         {!isError ? (
@@ -120,7 +121,8 @@ export function Login() {
       <Button
       align='center'
             mt={4}
-            colorScheme='teal'
+            bg='#fb641b'
+            color='white'
             // isLoading={props.isSubmitting}
             type='submit'
           >
