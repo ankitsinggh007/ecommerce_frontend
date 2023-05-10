@@ -1,6 +1,7 @@
 import { Box,Input,Text,Button,Flex,Icon } from "@chakra-ui/react";
 import { Search2Icon} from '@chakra-ui/icons'
 import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 function navbar() {
   return (
     <Flex cursor='pointer' h='55px' w='100%' bg='#2874f0' align='center' justify='space-evenly'>
@@ -19,7 +20,7 @@ function navbar() {
       <Text color='white' fontSize='1.2rem' fontWeight='semi-bold'>Cart</Text>
     </Flex>
     <Box w='10%'>
-      <Button color='#2874f0' bg='white' w='100%' >Login</Button>
+      <Link to='/login' style={{borderRadius:'5px',paddingLeft:'12px',paddingRight:'12px', paddingTop:"7px",paddingBottom:"7px",border:'none',fontSize:'1.2rem',color:"#2874f0",backgroundColor:"white"}}  >Login</Link>
     </Box>
   </Flex>
   )
