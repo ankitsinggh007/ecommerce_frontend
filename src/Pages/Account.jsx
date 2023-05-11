@@ -10,7 +10,6 @@ function Account() {
   <Image src='https://bit.ly/dan-abramov' 
   alt='Dan Abramov'
   borderRadius='full'
-  
   boxSize='250px'
    />
  <Text fontSize='3rem' fontWeight='bold'>ankit singh</Text>
