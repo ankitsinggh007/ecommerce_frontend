@@ -2,18 +2,23 @@ import { Button } from "@chakra-ui/react";
 import {
   FormControl,
   FormLabel,
-  FormHelperText,
   FormErrorMessage,
   Input,
 } from "@chakra-ui/react";
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Text, Flex } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, registeredUser } from "../slices/User";
 
 export function SignUp() {
   const [ConfirmPasswordNotMatched, setConfirmPasswordNotMatched] =
     useState(false);
+  const data = useSelector((state) => state.User);
+  const { loading, message, error } = useSelector((state) => state.User);
+
+  const dispatch = useDispatch();
 
   const handleRegisterForm = async (e) => {
     e.preventDefault();
@@ -23,7 +28,6 @@ export function SignUp() {
       password: e.target[2].value,
       confirmPassword: e.target[3].value,
     };
-    console.log(form, "form");
     if (form.password !== form.confirmPassword) {
       setConfirmPasswordNotMatched(true);
       return;
@@ -35,7 +39,17 @@ export function SignUp() {
       email: form.email,
       password: form.password,
     };
-    console.log(userDetails, "userDetails");
+    dispatch(
+      registeredUser(userDetails, {
+        Headers: { "Content-Type": "application/json" },
+      })
+    );
+
+    toast(`${message}`);
+    e.target[0].value = "";
+    e.target[1].value = "";
+    e.target[2].value = "";
+    e.target[3].value = "";
   };
   return (
     <Flex flexDirection="row">
@@ -84,33 +98,44 @@ export function SignUp() {
           <Input placeholder="conform password" />
           <FormErrorMessage>password is not matched</FormErrorMessage>
         </FormControl>
+
         <Button
+          isLoading={loading}
           align="center"
           mt={4}
           bg="#fb641b"
-          color="white"
-          // isLoading={props.isSubmitting}
+          loadingText="Registering"
+          colorScheme="grey"
+          variant="outline"
           type="submit"
         >
           Submit
         </Button>
       </form>
-      <ToastContainer />
+      {message && <ToastContainer />}
     </Flex>
   );
 }
 export function Login() {
-  const handleRegisterForm = async (e) => {
+  
+  // const data=use
+  const dispatch=useDispatch();
+  
+  
+  const handleRegisterForm =  (e) => {
     e.preventDefault();
     const form = {
       email: e.target[0].value,
       password: e.target[1].value,
     };
+    const userDetails={
+      ...form
+    }
+    dispatch(loginUser(userDetails));
+    
+    
 
-    console.log(form, form);
-    console.log("submitted");
   };
-  const isError = false;
 
   return (
     <Flex flexDirection="row" h="28.5em">
@@ -138,7 +163,7 @@ export function Login() {
         >
           Login
         </Text>
-        <FormControl isRequired isInvalid={isError}>
+        <FormControl isRequired >
           <FormLabel>Email</FormLabel>
 
           <Input type="email" placeholder="abc@xyz.com" />
