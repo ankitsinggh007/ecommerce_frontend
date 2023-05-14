@@ -8,20 +8,23 @@ import {
 import { Text, Flex } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registeredUser } from "../slices/User";
+import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
-  const [ConfirmPasswordNotMatched, setConfirmPasswordNotMatched] =
-    useState(false);
-  const data = useSelector((state) => state.User);
+  const [ConfirmPasswordNotMatched, setConfirmPasswordNotMatched] =useState(false);
+  
   const { loading, message, error } = useSelector((state) => state.User);
-
+  
   const dispatch = useDispatch();
 
-  const handleRegisterForm = async (e) => {
+
+  const handleRegisterForm = (e) => {
+  
     e.preventDefault();
+  
     const form = {
       name: e.target[0].value,
       email: e.target[1].value,
@@ -29,7 +32,9 @@ export function SignUp() {
       confirmPassword: e.target[3].value,
     };
     if (form.password !== form.confirmPassword) {
+  
       setConfirmPasswordNotMatched(true);
+  
       return;
     }
     setConfirmPasswordNotMatched(false);
@@ -39,18 +44,27 @@ export function SignUp() {
       email: form.email,
       password: form.password,
     };
-    dispatch(
-      registeredUser(userDetails, {
-        Headers: { "Content-Type": "application/json" },
-      })
-    );
 
-    toast(`${message}`);
-    e.target[0].value = "";
-    e.target[1].value = "";
-    e.target[2].value = "";
-    e.target[3].value = "";
+    dispatch(registeredUser(userDetails));
+  
+    e.target[0].value = ""; e.target[1].value = "";
+    e.target[2].value = "" ; e.target[3].value = "";
+  
   };
+
+
+  useEffect(() => {
+  
+    if(message){
+        toast(`${message}`);
+      }
+  
+    },[message]);
+  
+  
+  
+  
+  
   return (
     <Flex flexDirection="row">
       <Flex
@@ -117,25 +131,34 @@ export function SignUp() {
   );
 }
 export function Login() {
-  
-  // const data=use
   const dispatch=useDispatch();
-  
-  
-  const handleRegisterForm =  (e) => {
+  const { loading, message,isAuthectiacted, error } = useSelector((state) => state.User);
+
+  const Navigate=useNavigate();
+
+  const handleRegisterForm = (e) => {
     e.preventDefault();
     const form = {
       email: e.target[0].value,
       password: e.target[1].value,
     };
-    const userDetails={
-      ...form
-    }
+    const userDetails = {
+      ...form,
+    };
     dispatch(loginUser(userDetails));
-    
-    
-
   };
+  
+  useEffect(() => {
+  
+    if(message){
+        toast(`${message}`);
+      
+        if(isAuthectiacted){
+          Navigate('/account');
+        }
+      }
+  
+    },[message,isAuthectiacted,Navigate]);
 
   return (
     <Flex flexDirection="row" h="28.5em">
@@ -163,7 +186,7 @@ export function Login() {
         >
           Login
         </Text>
-        <FormControl isRequired >
+        <FormControl isRequired>
           <FormLabel>Email</FormLabel>
 
           <Input type="email" placeholder="abc@xyz.com" />
@@ -179,12 +202,14 @@ export function Login() {
           mt={4}
           bg="#fb641b"
           color="white"
-          // isLoading={props.isSubmitting}
+          isLoading={loading}
           type="submit"
         >
           Submit
         </Button>
       </form>
+      {message && <ToastContainer />}
+
     </Flex>
   );
 }

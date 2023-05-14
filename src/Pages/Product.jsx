@@ -4,7 +4,19 @@ import ProductCard from '../component/ProductCard';
 
 function Product({featured}) {
  const[Category,SetCategory] =useState(featured?'featured':'product');
-    return (
+    
+ 
+ 
+ 
+ 
+
+
+
+
+ 
+ 
+ 
+ return (
     <Flex  flexDirection='column' align='center' >
 
         <Text>Featured Products</Text>
