@@ -1,8 +1,22 @@
 import { Box, Text, Flex, Image, Button, Spacer } from "@chakra-ui/react";
-import { Link } from "react-router-dom/dist";
+import { Link, useNavigate } from "react-router-dom/dist";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { useSelector,useDispatch } from "react-redux";
+import { useEffect } from "react";
+import profilePic from '../assets/profilePic.png';
 
 function Account() {
+  const Navigate = useNavigate();
+  const { loading, message, error, user, isAuthectiacted } = useSelector(
+    (state) => state.User
+  );
+
+
+  useEffect(() => {
+    if (!isAuthectiacted) {
+      Navigate("/login");
+    }
+  }, [Navigate, isAuthectiacted]);
   return (
     <Flex flexDirection="column" align="space-between" rowGap="30px">
       <Flex
@@ -24,13 +38,14 @@ function Account() {
           bg="white"
         >
           <Image
-            src="https://bit.ly/dan-abramov"
-            alt="Dan Abramov"
+            src={user?.avatar?.url}
+            alt={user.name}
+            fallbackSrc={profilePic}
             borderRadius="full"
             boxSize="250px"
           />
           <Text fontSize="3rem" fontWeight="bold">
-            ankit singh
+            {user.name}
           </Text>
         </Box>
 
@@ -49,7 +64,7 @@ function Account() {
             <Text fontSize="1.9rem" fontWeight="2rem">
               Email:
             </Text>
-            <Text fontSize="1.6rem">ankit@gmail.com</Text>
+            <Text fontSize="1.6rem">{user.email}</Text>
           </Flex>
 
           <Flex align="center">
@@ -57,16 +72,48 @@ function Account() {
             <Text fontSize="1.9rem" fontWeight="2rem">
               Phone:
             </Text>
-            <Text fontSize="1.6rem">9205741057</Text>
+            {user.phone ? (
+              <Text fontSize="1.6rem">{user.phone}</Text>
+            ) : (
+              <Link
+                to="/update_account"
+                style={{
+                  backgroundColor: "#242425",
+                  letterSpacing: "2px",
+
+                  padding: "10px",
+                  borderRadius: "50px",
+                  color: "white",
+                }}
+              >
+                Update Phone no.
+                <ExternalLinkIcon mx="3px" />
+              </Link>
+            )}
           </Flex>
           <Flex align="center">
             {" "}
             <Text fontSize="1.9rem" fontWeight="2rem">
               Address:
             </Text>
-            <Text w="20rem" fontSize="1.6rem" noOfLines={2}>
-              929/8 puri kalkaji new delhi
-            </Text>
+            {user.address ? (
+              <Text fontSize="1.6rem">{user.address}</Text>
+            ) : (
+              <Link
+                to="/update_account"
+                style={{
+                  backgroundColor: "#242425",
+                  padding: "10px",
+                  letterSpacing: "2px",
+
+                  borderRadius: "50px",
+                  color: "white",
+                }}
+              >
+                Update Address
+                <ExternalLinkIcon mx="3px" />
+              </Link>
+            )}
           </Flex>
         </Flex>
         <Flex
