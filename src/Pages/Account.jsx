@@ -191,6 +191,23 @@ function Account() {
         Update Profile
         <ExternalLinkIcon />
       </Link>
+      {
+        user.role=='admin' &&
+        <Link
+        to="/update_store"
+        style={{
+          backgroundColor: "#242425",
+          padding: "10px",
+          borderRadius: "50px",
+          color: "white",
+          width: "10rem",
+          margin: "auto",
+        }}
+      >
+        Update Store
+        <ExternalLinkIcon />
+      </Link>
+      }
     </Flex>
   );
 }

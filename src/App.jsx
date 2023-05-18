@@ -9,6 +9,7 @@ import Product from "./Pages/Product";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import UpdateStore from "./Pages/UpdateStore";
 
 // axios.defaults.baseURL = "http://localhost:3000/";
 axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
@@ -51,6 +52,7 @@ const { loading, message, error,user,isAuthectiacted } = useSelector((state) => 
         <Route path="/login" element={<Login />} />
       {isAuthectiacted &&  <Route path="/account" element={<Account />} />}
         <Route path="/update_account" element={<UpdateProfile />} />
+        <Route path="/update_store" element={<UpdateStore />} />
         <Route path="/update_password" element={<UpdatePassowrd />} />
         <Route path="/cart" element={<Cart />} />
         <Route path='*' element={<h1>page not found...</h1>}/>
