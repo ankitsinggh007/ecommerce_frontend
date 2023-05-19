@@ -35,6 +35,7 @@ export const UpdateProfile = () => {
         setuserDetails({...userDetails,avatar:reader.result})
       }
     }
+    console.log(e.target.files[0],"filedata");
     reader.readAsDataURL(e.target.files[0]);
   }
   useEffect(() => {

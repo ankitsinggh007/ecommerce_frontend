@@ -13,7 +13,7 @@ import {
   Input
 } from '@chakra-ui/react'
 import { useEffect, useRef,useState } from 'react'
-function InitialFocus({ISonOpen}) {
+function InitialFocus({ISonOpen,setSearchFun}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
   
 const [Search, setSearch] = useState('');
@@ -22,6 +22,7 @@ const [Search, setSearch] = useState('');
     const searching=(e)=>{
      e.preventDefault();
         if(Search) {
+          setSearchFun(Search);
             console.log(Search);
         }
 
