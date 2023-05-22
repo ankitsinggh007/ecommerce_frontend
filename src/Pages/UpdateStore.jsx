@@ -1,10 +1,9 @@
-import { Button, Flex, Icon, Modal, Spacer } from "@chakra-ui/react";
+import { Button, Flex,  Spacer } from "@chakra-ui/react";
 import { AddIcon, EditIcon } from "@chakra-ui/icons";
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import {
   FormControl,
   FormLabel,
-  FormErrorMessage,
   NumberInput,
   NumberInputField,
   NumberIncrementStepper,
@@ -13,45 +12,49 @@ import {
   Textarea,
   Text,
   Input,
-  FormHelperText,
   Spinner,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaPlus } from "react-icons/fa";
 import InitialFocus from "../component/modal";
-import { AddItem } from "../slices/Product";
+import { AddItem, findProduct } from "../slices/Product";
 import { ToastContainer, toast } from "react-toastify";
 import DragDrop from "../component/ImageUpload";
 function UpdateStore() {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.User);
+  
+  const {fetchedProduct} = useSelector((state) => state.Product);
   const { message, loading } = useSelector((state) => state.Product);
   const [AddItemsActive, setAddItemsActive] = useState("none");
   const [EditItemActive, setEditItemActive] = useState("none");
 
+  const [EditForm, setEditForm] = useState({...fetchedProduct.productDetails})
+
   const [Search, setSearch] = useState("");
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [updateImage, setupdateImage] = useState([]);
 
   const addItemHandler = (e) => {
     e.preventDefault();
     const productDetails = {
       name: e.target[0].value,
       description: e.target[1].value,
-      category: e.target[2].value,
-      price: e.target[3].value,
-      stock: e.target[4].value,
+      category: e.target[4].value,
+      price: e.target[5].value,
+      stock: e.target[6].value,
       user: user?.id,
+      images:updateImage
     };
-    console.log(productDetails);
     dispatch(AddItem(productDetails));
-    console.log("how can i be print");
     e.target[0].value = "";
     e.target[1].value = "";
     e.target[2].value = "";
     e.target[3].value = "";
     e.target[4].value = "";
+    setupdateImage([]);
   };
 
   const toggleModal = () => {
@@ -73,7 +76,15 @@ function UpdateStore() {
       setSearch("");
       setAddItemsActive("none");
     }
-  }, []);
+    if(fetchedProduct.message){
+      toast(`${message}`);
+
+    }
+    if(Search){
+      console.log(Search,'Search');
+      dispatch(findProduct(Search));
+    }
+  }, [message,Search]);
 
   return (
     <Flex p="10px">
@@ -144,7 +155,7 @@ function UpdateStore() {
             <Spacer />
             <Spacer />
             <FormControl>
-              <DragDrop/>
+              <DragDrop UpdateImage={setupdateImage} Image={updateImage}/>
               <FormLabel>Category</FormLabel>
               <Input type="text" />
             </FormControl>
@@ -152,7 +163,7 @@ function UpdateStore() {
             <Spacer />
             <Flex>
               <FormControl w="40%">
-                <FormLabel>Amount in $ inr</FormLabel>
+                <FormLabel>Price </FormLabel>
                 <NumberInput defaultValue={0} min={10}>
                   <NumberInputField />
                   <NumberInputStepper>
@@ -209,7 +220,12 @@ function UpdateStore() {
               ISonOpen={isOpen}
             ></InitialFocus>
           )}
-          {Search && (
+    
+            {Search && fetchedProduct.loading &&
+          <Spinner m="auto" size="xl" />
+            }
+          
+          {Search && ! fetchedProduct.loading &&
             <form
               style={{
                 boxShadow: `rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px`,
@@ -227,27 +243,27 @@ function UpdateStore() {
                 Edit Item{" "}
               </Text>
               <FormControl>
-                <FormLabel>name</FormLabel>
-                <Input type="text" />
+                <FormLabel>Name</FormLabel>
+                <Input type="text" value={EditForm.name} />
               </FormControl>
               <Spacer />
               <Spacer />
               <FormControl>
-                <FormLabel>description</FormLabel>
-                <Textarea placeholder="write description here..." />
+                <FormLabel>Description</FormLabel>
+                <Textarea placeholder="write description here..." value={EditForm.description} />
               </FormControl>
               <Spacer />
               <Spacer />
               <FormControl>
-                <FormLabel>Category</FormLabel>
-                <Input type="text" />
+                <FormLabel> Category</FormLabel>
+                <Input type="text" value={EditForm.category} />
               </FormControl>
               <Spacer />
               <Spacer />
               <Flex>
                 <FormControl w="40%">
-                  <FormLabel>Amount in $ inr</FormLabel>
-                  <NumberInput defaultValue={0} min={10}>
+                  <FormLabel>price</FormLabel>
+                  <NumberInput defaultValue={0} value={EditForm.price} min={10}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -259,7 +275,7 @@ function UpdateStore() {
                 <Spacer />
                 <FormControl w="40%">
                   <FormLabel>Stock</FormLabel>
-                  <NumberInput defaultValue={0} min={0}>
+                  <NumberInput defaultValue={0} value={EditForm.Stock} min={0}>
                     <NumberInputField />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
@@ -307,10 +323,11 @@ function UpdateStore() {
                 </Button>
               </Flex>
             </form>
-          )}
+          }
         </Flex>
       </Flex>
       {message && <ToastContainer />}
+      {fetchedProduct.message && <ToastContainer />}
     </Flex>
   );
 }

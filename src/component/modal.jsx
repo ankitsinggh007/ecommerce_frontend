@@ -16,6 +16,10 @@ import { useEffect, useRef,useState } from 'react'
 function InitialFocus({ISonOpen,setSearchFun}) {
     const { isOpen, onOpen, onClose } = useDisclosure()
   
+
+
+
+    
 const [Search, setSearch] = useState('');
     const initialRef = useRef(null)
     const finalRef = useRef(null)
@@ -23,7 +27,6 @@ const [Search, setSearch] = useState('');
      e.preventDefault();
         if(Search) {
           setSearchFun(Search);
-            console.log(Search);
         }
 
         onClose();
@@ -44,7 +47,7 @@ const [Search, setSearch] = useState('');
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Search for product based on id</ModalHeader>
+            <ModalHeader>Search for product </ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl >

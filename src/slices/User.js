@@ -26,7 +26,6 @@ export const loginUser = createAsyncThunk("user/login", async (userData) => {
     });
     return data;
   } catch (error) {
-    console.log(error, "error");
 
     return error.response.data;
   }
@@ -42,6 +41,23 @@ export const updateUser = createAsyncThunk("user/update", async (userData) => {
     return error.response.data;
   }
 });
+
+export const  loadUser=createAsyncThunk('user/load',
+
+async ()=>{
+  try {
+    const { data } = await axios.get("/api/v1/user/profile", {
+      withCredentials:true
+    });
+    return data;
+  } catch (error) {
+    return error.response.data;
+  }
+
+}
+
+)
+
 
 const userSlice = createSlice({
   name: "user",
@@ -70,7 +86,6 @@ const userSlice = createSlice({
         state.isAuthectiacted = false;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        console.log(action,"LoginUser");
         state.loading = false;
         state.message = action.payload.message;
         state.user = action.payload.response;
@@ -88,8 +103,6 @@ const userSlice = createSlice({
       state.message = '';
     })
     .addCase(updateUser.fulfilled,(state,action)=>{
-      console.log(action,"updateUser");
-
       state.loading = false;
       state.message = action.payload.message;
       state.user = action.payload.data;
@@ -100,6 +113,25 @@ const userSlice = createSlice({
       state.isAuthectiacted = false;
       state.message = "something went wrong";
     });
+
+    // load user
+    builder
+      .addCase(loadUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+        state.user = action.payload.response;
+        state.isAuthectiacted = action.payload.success ? true : false;
+      })
+      .addCase(loadUser.rejected, (state, action) => {
+        state.loading = false;
+        state.isAuthectiacted = false;
+        state.message = "something went wrong";
+      })
+      .addCase(loadUser.pending, (state) => {
+        state.loading = true;
+        state.message = "";
+        state.isAuthectiacted = false;
+      });
   },
 });
 

@@ -8,42 +8,35 @@ import Cart from "./Pages/Cart";
 import Product from "./Pages/Product";
 import axios from "axios";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import UpdateStore from "./Pages/UpdateStore";
+import { loadUser } from "./slices/User";
+import { fetchAllProduct } from "./slices/Product";
 
-// axios.defaults.baseURL = "http://localhost:3000/";
-axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
+axios.defaults.baseURL = "http://localhost:3000/";
+// axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
 axios.defaults.withCredentials = true;
 
 function App() {
-  const userData={
-email:"jkjkj@gmail.com",
-password:"ankity"
-}
-    
-  const RegisterUser=async(userData)=>{
-   try {
-        const response =  await fetch('https://muddy-pike-cardigan.cyclic.app/api/v1/user/login', {
-          method: "POST",
-          headers: {
-            // "Content-type": "application/json; charset=UTF-8"
-        },
-          body: JSON.stringify(userData)
-         } );
-            console.log(response,"resp");
-         const authHeader = response.headers.get('Authorization');
-          console.log(authHeader,"auth");
 
-   } catch (error) {
-    console.log(error.response.data.message,'error');
-   }
-  };
-  useEffect(()=>{
-    RegisterUser({email:"ankit@gmail.com",password:"ankit@gmail.com"});
-  },[]);
-  
+const dispatch=useDispatch();
+
+
 const { loading, message, error,user,isAuthectiacted } = useSelector((state) => state.User);
+
+
+  useEffect(() => {
+    
+    if(!isAuthectiacted){
+      dispatch(loadUser());
+    }
+    dispatch(fetchAllProduct());
   
+    
+  }, [dispatch,isAuthectiacted]);
+  
+  
+
   return (
     <Routes>
       <Route path="/" element={<Home />}>

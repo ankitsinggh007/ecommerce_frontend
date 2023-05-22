@@ -1,63 +1,80 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
-import Thumbnails from './thumbnail'
+import Thumbnails from "./thumbnail";
+import { ToastContainer, toast } from "react-toastify";
 const fileTypes = ["JPG", "PNG", "GIF"];
 
-function DragDrop() {
+function DragDrop({UpdateImage,Image}) {
+  
   const [File, setFile] = useState([]);
-  const [FileUrl, setFileUrl] = useState([]);
+
+  // const [FileUrl, setFileUrl] = useState(Image);
+  
+  const [FileLimit, setFileLimit] = useState(false);
+  
   const handleChange = (file) => {
-    setFile(file);
-  };
-  useEffect(()=>{
-  
-    console.log(FileUrl,"FileUrl");
-
-    if(File.length!==0){
-    let fileReader=new FileReader();
-      console.log("inside")
-    fileReader.onload=(e)=>{
-        console.log(e,"e");
-        
-        if(fileReader.status===2){
-            // FileUrl.push();
-            console.log("deep inside");
-            // const data={...FileUrl,fileReader.result}
-            setFileUrl(fileReader.result);
-            if(error){
-                console.log(error,"error");
-            }
-        }
-        else if(fileReader.status===1){
-            console.log(fileReader.error);
-        // File.forEach(element => {
-        //     fileReader.readAsDataURL(element);
-        // });
+    // setFileLimit(false);
+    // const fileValue = Object.values(file);
+    if (File.length > 5 || Image?.length>5) {
+      setFileLimit(true);
+      return;
     }
-    fileReader.readAsDataURL(File[0]);
 
-    }}
+       setFile([...File,file]);
+  };
+  const readeAsUrl=(file)=>{
+    const reader=new FileReader();
+    reader.onload=(e)=>{
+    
+      if(reader.readyState==2){
+        // setFileUrl([...FileUrl,reader.result]);
+        UpdateImage([...Image,reader.result]);
+      }
+      
+    };
+    reader.readAsDataURL(file);
+  }  
 
-  },[File,FileUrl]);
-  console.log(File,"File");
-  console.log(FileUrl,"FileUrl");
-  
+  useEffect(() => {
+    if (FileLimit) {
+      toast("maximum 4 image can be uploaded");
+    }
+    else{
+      if(File.length>0 &&File.length<5 ){
+        for(let i=0;i<File.length;i++){
+        readeAsUrl(File[i]);
+      }
+      }
+    }
+  }, [File, FileLimit]);
+  const handleDelete=()=>{
+    let file=[...File];
+    file.pop();
+    setFile(file);
+    file=[...FileUrl];
+    file.pop();
+    setFileUrl(file);
+  }
 
   return (
-   <Flex direction='column'  height='200px' >
-    <Text fontWeight='light' alignSelf='flex-start'>Upload image's</Text>
-    <FileUploader
-    style={{width:'20%'}}
-     handleChange={handleChange}
-     name="file" types={fileTypes}
-     multiple
-     hoverTitle
-    //  onDrop={()=>{console.log('File droped')}}
-     maxSize='1mb'
-     />
-     <Thumbnails></Thumbnails>
-   </Flex>
+    <Flex direction="column" height='fit-content'>
+      <Text fontWeight="light" alignSelf="flex-start">
+        Upload image's
+      </Text>
+      <FileUploader
+        style={{ width: "20%" }}
+        handleChange={handleChange}
+        name="file"
+        types={fileTypes}
+        hoverTitle
+        maxSize="1mb"
+      />
+     
+      <Thumbnails message={'hi'} ImageURL={Image} ></Thumbnails>
+      <Button onClick={handleDelete}>Delete</Button>
+      {FileLimit && <ToastContainer />}
+    </Flex>
   );
 }
 
