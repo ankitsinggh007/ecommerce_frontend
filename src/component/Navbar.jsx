@@ -1,12 +1,12 @@
-import { Box,Input,Text,Button,Flex,Icon } from "@chakra-ui/react";
+import { Box,Input,Text,Flex,Icon } from "@chakra-ui/react";
 import { Search2Icon} from '@chakra-ui/icons'
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 function navbar() {
   return (
     <Flex cursor='pointer' h='55px' w='100%' bg='#2874f0' align='center' justify='space-evenly'>
     <Flex >
-      <Text color='white' fontSize='1.7rem' fontWeight="bold"  fontFamily='roboto' >Flipkart</Text>
+      <NavLink to='/' style={{color:'white',fontSize:'1.7rem',fontWeight:"bold",fontFamily:'roboto'}} >Flipkart</NavLink>
     </Flex>
     <Flex >
       <Text color='white' fontSize='1.4rem' borderLeft='2px solid white' pl='5px'   fontFamily='roboto' >Product</Text>

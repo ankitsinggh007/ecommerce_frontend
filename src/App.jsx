@@ -13,8 +13,8 @@ import UpdateStore from "./Pages/UpdateStore";
 import { loadUser } from "./slices/User";
 import { fetchAllProduct } from "./slices/Product";
 
-// axios.defaults.baseURL = "http://localhost:3000/";
-axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
+axios.defaults.baseURL = "http://localhost:3000/";
+// axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
 axios.defaults.withCredentials = true;
 
 function App() {
