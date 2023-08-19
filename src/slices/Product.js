@@ -34,9 +34,9 @@ export const findProduct=createAsyncThunk(
 export const fetchAllProduct=createAsyncThunk(
     'Product/fetchAllProduct',
     
-    async ()=>{
+    async (page)=>{
         try {
-            const {data}=await axios.get(`api/v1/product`,
+            const {data}=await axios.get(`api/v1/product?page=${page}`,
         );
         return data;
         } catch (error) {
@@ -45,10 +45,47 @@ export const fetchAllProduct=createAsyncThunk(
     }
 )
 
+export const fetchCartDetails=createAsyncThunk(
+    'Product/fetchCart',
+    async (id)=>{
+        try {
+            const {data}=await axios.get(`api/v1/product/${id}`,
+        );
+
+        return data;
+        } catch (error) {
+            return error.response.data;
+        }
+    }
+)
+
+export const productDetails=createAsyncThunk(
+
+    'Product/productDetails',
+
+    async(id)=>{
+        console.log("hi i am inside slice")
+        try {
+            const {data}=await axios.get(`/api/v1/product/${id}`,
+        );
+        console.log(data,"from slice");
+        return data;
+        } catch (error) {
+            return error.response.data;
+        }
+    }
+
+
+)
+
+
+
 
 
 const initialState={
-    fetchedProduct:{}
+    fetchedProduct:{},
+    productDetails:{},
+    Cart:{}
 }
 
 const productSlice=createSlice({
@@ -100,6 +137,36 @@ const productSlice=createSlice({
             state.fetchedProduct.message = "";
             state.fetchedProduct.loading = true;
           });
+        //   fetch produtDetails
+        builder.addCase(productDetails.fulfilled,(state,action)=>{
+            state.productDetails.product = action.payload.response;
+            state.productDetails.loading = false;
+            state.productDetails.message = action.payload.message;       
+        })
+        .addCase(productDetails.rejected,(state,action)=>{
+            state.productDetails.loading = false;
+            state.productDetails.message = "something went wrong";
+        })
+        .addCase(productDetails.pending,(state,action)=>{
+            state.productDetails.message = "";
+            state.productDetails.loading = true;
+        })
+        // added to Cart
+        builder.addCase(fetchCartDetails.fulfilled,(state,action)=>{
+            state.Cart.list.push(action.payload.response);
+            state.Cart.loading = false;
+            state.Cart.message = action.payload.message;       
+        })
+        .addCase(fetchCartDetails.rejected,(state,action)=>{
+            state.Cart.list=[];
+            state.Cart.loading = false;
+            state.Cart.message = "something went wrong";
+        })
+        .addCase(fetchCartDetails.pending,(state,action)=>{
+            state.Cart.message = "";
+            state.Cart.list=[];
+            state.Cart.loading = true;
+        })
     }
 
 

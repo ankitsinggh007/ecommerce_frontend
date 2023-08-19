@@ -1,29 +1,41 @@
-import { Box,Input,Text,Flex,Icon } from "@chakra-ui/react";
-import { Search2Icon} from '@chakra-ui/icons'
-import { FaShoppingCart } from "react-icons/fa";
+import { useState } from "react";
+import { BiSearchAlt2 } from "react-icons/bi";
 import { Link, NavLink } from "react-router-dom";
-function navbar() {
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+const Navbar = () => {
+  const { loading, message, error, user, isAuthectiacted } = useSelector(
+    (state) => state.User
+  );
+  const [quantity, setquantity] = useState(user?.cart?.length);
+  useEffect(() => {
+    setquantity(user?.cart?.length);
+  }, [user, user?.cart]);
   return (
-    <Flex cursor='pointer' h='55px' w='100%' bg='#2874f0' align='center' justify='space-evenly'>
-    <Flex >
-      <NavLink to='/' style={{color:'white',fontSize:'1.7rem',fontWeight:"bold",fontFamily:'roboto'}} >Flipkart</NavLink>
-    </Flex>
-    <Flex >
-      <Text color='white' fontSize='1.4rem' borderLeft='2px solid white' pl='5px'   fontFamily='roboto' >Product</Text>
-    </Flex>
-    <Flex align='center' w='40%' pos='relative' >
-    <Input bg='white' variant='outline' size='md'  boxShadow='lg' placeholder='Search for Products...' />
-    <Search2Icon boxSize='25px' color='grey' bg='white'  right='10px' pos='absolute' />
-    </Flex>
-    <Flex align='center' gap='1'>
-      <Icon color='white' fontSize='1.2rem' as={FaShoppingCart}/>
-      <Text color='white' fontSize='1.2rem' fontWeight='semi-bold'>Cart</Text>
-    </Flex>
-    <Box w='10%'>
-      <Link to='/login' style={{borderRadius:'5px',paddingLeft:'12px',paddingRight:'12px', paddingTop:"7px",paddingBottom:"7px",border:'none',fontSize:'1.2rem',color:"#2874f0",backgroundColor:"white"}}  >Login</Link>
-    </Box>
-  </Flex>
-  )
-}
+    <nav className="bg-primary h-14 flex justify-evenly items-center">
+      <span className="basis-1/4 font-sans  italic font-bold text-2xl text-white">
+        <NavLink className="cursor-pointer" to="/">
+          Flipkart
+        </NavLink>
+      </span>
+      <span className="basis-2/4 relative">
+        <input
+          type="text"
+          className="w-full placeholder-gray-500 text-gray-700 rounded-sm pl-3 h-9 outline-none drop-shadow-md"
+          placeholder="Search..."
+        />
+        <BiSearchAlt2 className="absolute right-2 top-1/4 text-2xl font-bold text-primary " />
+      </span>
+      <span className="basis-1/4">
+        <NavLink
+          to="/login"
+          className="bg-white text-primary px-10  py-2 font-semibold shadow-md "
+        >
+          Login
+        </NavLink>
+      </span>
+    </nav>
+  );
+};
 
-export default navbar
+export default Navbar;

@@ -1,20 +1,28 @@
 import { Flex,Text,Image, Spinner, Box } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../component/ProductCard';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { fetchAllProduct } from '../slices/Product';
+import Banner from '../component/Banner';
 
 function Product({featured}) {
+const dispatch=useDispatch();
+
  const[Category,SetCategory] =useState(featured?'featured':'product');
  
   const {fetchedProduct}=useSelector(state=>state.Product);
+
+  const currentPage=1;
+
+
 
   useEffect(()=>{
     if(fetchedProduct.message){
       toast(`${fetchedProduct.message}`);
     }
-  },[fetchedProduct.message]);
-console.log(fetchedProduct,"fetched")
+    dispatch(fetchAllProduct(currentPage));
+  },[dispatch]);
 
 
 const productComponenet=fetchedProduct?.allProduct?.map((item,index)=>{
@@ -23,34 +31,30 @@ const productComponenet=fetchedProduct?.allProduct?.map((item,index)=>{
 });
 
  return (
-    <Flex   justify='center' direction='column' border='1px solid black' >
-      <Text>Featured Products</Text>
-          <Flex border="1px solid red" direction='row' >
-            {
-              fetchedProduct?.loading?<Spinner m='auto' size='xl'/>:
-              <Flex wrap='wrap' border='1px solid green' w='100%' justify='space-evenly'>
-                {
-                    fetchedProduct?.allProduct?.map((item,index)=>{
-                 return(
-                  <ProductCard item={item} key={index}/>
-                 )
-                
-                })
-              }
-              </Flex>
+    // <Flex   justify='center' direction='column' w='90%' m="auto"  >
+    //   <Text>Featured Products</Text>
+    //       <Flex  direction='row' >
+    //         {
+    //           fetchedProduct?.loading?<Spinner m='auto' size='xl'/>:
+    //           <Flex wrap='wrap'  w='100%' justify='space-evenly'>
+    //             {
+    //               // <ProductCard item={fetchedProduct?.allProduct[0]} key={1}/>
+    //           }
+    //           </Flex>
               
-            }
-          </Flex>
- 
- 
- 
+    //         }
 
-       {
-        fetchedProduct?.message && <ToastContainer/>
-       } 
+
+    //       </Flex>
+    //       <Flex m='auto'>pages</Flex>
+           
+
+    //    {
+    //     fetchedProduct?.message && <ToastContainer/>
+    //    } 
         
-    </Flex>
-
+    // </Flex>
+<Banner/>
   )
 }
 

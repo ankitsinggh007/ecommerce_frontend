@@ -8,23 +8,24 @@ import {
 import { Text, Flex } from "@chakra-ui/react";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, registeredUser } from "../slices/User";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import flipkartLogo from "../assets/flipkart.svg";
+import flipkart_Logo from "../assets/flipkart_logo.jpg";
 
 export function SignUp() {
-  const [ConfirmPasswordNotMatched, setConfirmPasswordNotMatched] =useState(false);
-  
+  const [ConfirmPasswordNotMatched, setConfirmPasswordNotMatched] =
+    useState(false);
+
   const { loading, message, error } = useSelector((state) => state.User);
-  
+
   const dispatch = useDispatch();
 
-
   const handleRegisterForm = (e) => {
-  
     e.preventDefault();
-  
+
     const form = {
       name: e.target[0].value,
       email: e.target[1].value,
@@ -32,9 +33,8 @@ export function SignUp() {
       confirmPassword: e.target[3].value,
     };
     if (form.password !== form.confirmPassword) {
-  
       setConfirmPasswordNotMatched(true);
-  
+
       return;
     }
     setConfirmPasswordNotMatched(false);
@@ -46,95 +46,96 @@ export function SignUp() {
     };
 
     dispatch(registeredUser(userDetails));
-  
-    e.target[0].value = ""; e.target[1].value = "";
-    e.target[2].value = "" ; e.target[3].value = "";
-  
+
+    e.target[0].value = "";
+    e.target[1].value = "";
+    e.target[2].value = "";
+    e.target[3].value = "";
   };
 
-
   useEffect(() => {
-  
-    if(message){
-        toast(`${message}`);
-      }
-  
-    },[message]);
-  
-  
-  
-  
-  
+    if (message) {
+      toast(`${message}`);
+    }
+  }, [message]);
+
   return (
-    <Flex flexDirection="row">
-      <Flex
-        flexDirection="column"
-        rowGap="10px"
-        w="50%"
-        p="10px"
-        bg="royalBlue"
-      >
-        <Text color="white" mt="20px" fontSize="1.2rem">
-          Looks like you're new here
-        </Text>
-        <Text color="white" fontSize="1.2rem">
-          sign up with your email to get started shopping
-        </Text>
-      </Flex>
-      <form onSubmit={handleRegisterForm}>
-        <Text
-          color="royalBlue"
-          fontWeight="medium"
-          fontSize="1.6rem"
-          mb="30px"
-          textAlign="center"
+    <div className="flex border-2 border-indigo-200 w-1/2 mx-auto my-auto sm:mt-16 rounded-md shadow-md">
+      <div className="bg-[#0087CE] basis-1/3 flex flex-col p-5">
+        <span className="text-white text-Roboto text-left text-2xl line-clamp-2 font-semibold">
+          Looks Like You're new here
+        </span>
+        <br />
+        <span className="line-clamp-2 text-slate-300 font-medium text-left text-md">
+          Sign up with your mobile number to get started
+        </span>
+        <img src={flipkartLogo} className="h-80" />
+      </div>
+      <div className="basis-2/3">
+        <form
+          className="text-left ml-16  w-80 flex justify-center flex-col gap-5  h-4/5 "
+          onSubmit={handleRegisterForm}
         >
-          Register
-        </Text>
+          <div>
+            <input
+              className="border-b-2 w-80 pb-1 mt-5 border-gray-800 focus:border-primary focus:outline-none"
+              type="text"
+              placeholder="Name"
+              id="name"
+            />
+          </div>
+          <div>
+            <input
+              className="border-b-2 w-80 pb-1 mt-5 border-gray-800 focus:border-primary focus:outline-none"
+              type="email"
+              placeholder="Email"
+              id="email"
+            />
+          </div>
 
-        <FormControl isRequired>
-          <FormLabel>Name</FormLabel>
-          <Input placeholder="Name" />
-        </FormControl>
+          <div>
+            <input
+              className="border-b-2 w-80 pb-1 mt-5 border-gray-800 focus:border-primary focus:outline-none"
+              type="password"
+              placeholder="Password"
+              id="password"
+            />
+          </div>
 
-        <FormControl isRequired>
-          <FormLabel>Email</FormLabel>
-          <Input type="email" />
-        </FormControl>
+          <div>
+            <input
+              type="password"
+              placeholder="Conform Password"
+              id="C_password"
+              className="border-b-2 w-80 pb-1 mt-5 border-gray-800 focus:border-primary focus:outline-none"
+            />
+          </div>
 
-        <FormControl isRequired>
-          <FormLabel>password</FormLabel>
-          <Input placeholder="password" />
-        </FormControl>
+          <button
+            type="submit"
+            // isLoading={loading}
+            // mt={4}
+            // bg="#fb641b"
+            // loadingText="Registering"
+            className=" bg-[#fb631b] w-20 self-center p-1 px-2 rounded-sm outline-none text-white"
+          >
+            Sign up
+          </button>
+        </form>
+        <NavLink to='/login' className="text-primary font-bold ">Already have an account?Sign in</NavLink>
 
-        <FormControl isRequired isInvalid={ConfirmPasswordNotMatched}>
-          <FormLabel>conform password</FormLabel>
-          <Input placeholder="conform password" />
-          <FormErrorMessage>password is not matched</FormErrorMessage>
-        </FormControl>
+      </div>
 
-        <Button
-          isLoading={loading}
-          align="center"
-          mt={4}
-          bg="#fb641b"
-          loadingText="Registering"
-          colorScheme="grey"
-          variant="outline"
-          type="submit"
-        >
-          Submit
-        </Button>
-      </form>
-      {message && <ToastContainer />}
-    </Flex>
+    </div>
   );
 }
 export function Login() {
-  const dispatch=useDispatch();
-  const { loading, message,isAuthectiacted, error } = useSelector((state) => state.User);
+  const dispatch = useDispatch();
+  const { loading, message, isAuthectiacted, error } = useSelector(
+    (state) => state.User
+  );
 
-  const Navigate=useNavigate();
+  const Navigate = useNavigate();
 
   const handleRegisterForm = (e) => {
     e.preventDefault();
@@ -147,69 +148,67 @@ export function Login() {
     };
     dispatch(loginUser(userDetails));
   };
-  
+
   useEffect(() => {
-  
-    if(message){
-        toast(`${message}`);
-      
-        if(isAuthectiacted){
-          Navigate('/account');
-        }
+    if (message) {
+      toast(`${message}`);
+
+      if (isAuthectiacted) {
+        Navigate("/account");
       }
-  
-    },[message,isAuthectiacted,Navigate]);
+    }
+  }, [message, isAuthectiacted, Navigate]);
 
   return (
-    <Flex flexDirection="row" h="28.5em">
-      <Flex
-        flexDirection="column"
-        rowGap="10px"
-        p="10px"
-        w="50%"
-        bg="royalBlue"
-      >
-        <Text fontWeight="bold" fontSize="1.4rem" color="white">
-          Login
-        </Text>
-        <Text color="white" fontSize="1.2rem">
-          Get access to your Orders, Wishlist and Recommendations
-        </Text>
-      </Flex>
-      <form onSubmit={handleRegisterForm}>
-        <Text
-          color="royalBlue"
-          fontWeight="medium"
-          fontSize="1.6rem"
-          mb="30px"
-          textAlign="center"
+    <div className="flex border-2 border-indigo-200 w-1/2 mx-auto my-auto sm:mt-16 rounded-md shadow-md">
+      <div className="bg-[#1F7ECE] basis-1/3 flex flex-col p-5">
+        <span className="text-white text-Roboto text-left text-2xl line-clamp-2 font-semibold">
+          Looks Like You're new here
+        </span>
+        <br />
+        <span className="line-clamp-2 text-slate-300 font-medium text-left text-md">
+          Sign up with your mobile number to get started
+        </span>
+        <img src={flipkart_Logo}  className="h-80 " />
+      </div>
+      <div className="basis-2/3">
+        <form
+          className="text-left ml-16  w-80 flex justify-center flex-col gap-5  h-4/5 "
+          onSubmit={handleRegisterForm}
         >
-          Login
-        </Text>
-        <FormControl isRequired>
-          <FormLabel>Email</FormLabel>
+          <div>
+            <input
+              className="border-b-2 w-80 pb-1 mt-5 border-gray-800 focus:border-primary focus:outline-none"
+              type="email"
+              placeholder="Email"
+              id="email"
+            />
+          </div>
 
-          <Input type="email" placeholder="abc@xyz.com" />
-        </FormControl>
+          <div>
+            <input
+              className="border-b-2 w-80 pb-1 mt-5 border-gray-800 focus:border-primary focus:outline-none"
+              type="password"
+              placeholder="Password"
+              id="password"
+            />
+          </div>
 
-        <FormControl isRequired>
-          <FormLabel>Password</FormLabel>
+          <button
+            type="submit"
+            // isLoading={loading}
+            // mt={4}
+            // bg="#fb641b"
+            // loadingText="Registering"
+            className=" bg-[#fb631b] w-20 self-center p-1 px-2 rounded-sm outline-none text-white"
+          >
+            Log in
+          </button>
+        </form>
+        <NavLink to='/signup' className="text-primary font-bold ">New to Flipkart?Create account</NavLink>
 
-          <Input placeholder="password" />
-        </FormControl>
-        <Button
-          align="center"
-          mt={4}
-          bg="#fb641b"
-          color="white"
-          isLoading={loading}
-          type="submit"
-        >
-          Submit
-        </Button>
-      </form>
-      {message && <ToastContainer />}
+      </div>
 
-    </Flex>
+    </div>
   );
 }

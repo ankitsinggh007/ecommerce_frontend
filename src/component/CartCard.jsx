@@ -1,33 +1,39 @@
-import { Flex, Image,Text } from '@chakra-ui/react'
-import React from 'react'
+import { Flex, Image, Text } from "@chakra-ui/react";
+import React from "react";
+import { formatePrice } from "../utils/FormatePrice";
+import { MdOutlineDeleteForever } from "react-icons/md";
 
-function CartCard() {
-    const Cart_Item={
-        name:'Slippers For Men Flip Flops Hotel Spa Massage Chappal Bedroom Carpet Black Slippers',
-        price:200,
-        quantity:1,
-        images:'https://rukminim1.flixcart.com/image/832/832/kuof5ow0/slipper-flip-flop/w/g/c/3-iluf1015-w-black-36-p-drunken-black-original-imag7qsf6fd67gka.jpeg?q=70'
-      }
-      
-    return (
+function CartCard({ prop }) {
+  const Cart_Item = {
+    name: prop.name,
+    price: prop.price,
+    quantity: prop.quantity,
+    images: prop?.images[0].url,
+  };
 
-    <Flex p='20px' bg='white'>
-        <Image
-    boxSize='100px'
-    objectFit='cover'
-    src={Cart_Item.images}
-    alt={Cart_Item.name}
-  />
-        <Flex flexDirection='column' ml='20px' alignItems='flex-start'>
-        <Text fontSize='1.2rem' >{Cart_Item.name}</Text>
-        <Text fontSize='.6rem' color='grey' ></Text>
-        <Text fontSize='1.2rem' fontWeight='bold' >{Cart_Item.price}</Text>
-        <Flex>
-            <Text fontSize='1.2rem' fontWeight='bold'>Remove</Text>
-        </Flex>
-        </Flex>
+  return (
+    <Flex p="20px"pos='relative' m="5px" bg="white"  border="1px solid black">
+      <Image
+      border="1px solid black"
+        boxSize="100px"
+        objectFit="contain"
+        src={Cart_Item.images}
+        alt={Cart_Item.name}
+      />
+      <Flex border="1px solid black" flexDirection="column" ml="20px" alignItems="flex-start">
+        <Text fontSize="1.2rem" w="70%" noOfLines={1}>
+          {Cart_Item.name}
+        </Text>
+        <Text fontSize=".6rem" color="grey"></Text>
+        <Text fontSize="1.2rem" fontWeight="bold">
+          {formatePrice(Cart_Item.price)}{" "}
+        </Text>
+      </Flex>
+      <Flex pos={"absolute"} top='45%'right="30px"  >
+          <MdOutlineDeleteForever fontSize="1.5rem" />
+      </Flex>
     </Flex>
-  )
+  );
 }
 
-export default CartCard
+export default CartCard;

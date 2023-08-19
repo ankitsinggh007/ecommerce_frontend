@@ -13,9 +13,8 @@ import { ToastContainer, toast } from "react-toastify";
 import { updateUser } from "../slices/User";
 export const UpdateProfile = () => {
   const dispatch = useDispatch();
-
-  const { loading, message, error, user } = useSelector((state) => state.User);
-
+  const { loading, message, error, user } = useSelector((state) => state.user?.User);
+    console.log(user,"user");
   const [userDetails, setuserDetails] = useState({
     ...user,
   });

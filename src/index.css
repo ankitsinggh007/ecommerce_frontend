@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Define custom fonts using @font-face (if needed) */
+@font-face {
+    font-family: 'Roboto';
+    src: url('/path/to/roboto-font.woff2') format('woff2');
+    /* Include other font formats if necessary */
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  /* Specify built-in fonts */
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  *{
+    box-sizing:content-box;
+  }

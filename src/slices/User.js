@@ -58,6 +58,23 @@ async ()=>{
 
 )
 
+export const addItemToCart=createAsyncThunk(
+  'user/addItemToCart',
+  async ({id,counter})=>{
+    try {
+      const { data } = await axios.get(`/api/v1/user/addItems/${id}?quantity=${counter}`, {
+        withCredentials:true
+      });
+      console.log(data,"cart");
+      return data;
+    } catch (error) {
+      return error.response.data;
+    }
+  
+  }
+)
+
+
 
 const userSlice = createSlice({
   name: "user",
