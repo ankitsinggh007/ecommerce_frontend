@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { addItemToCart, loadUser } from "../slices/User";
 
 
-function AddToCartCounter({ stock ,id}) {
+const AddToCartCounter=({ stock ,id})=> {
 
   const dispatch=useDispatch();
   const [counter, setcounter] = useState(stock ? stock : 1);
