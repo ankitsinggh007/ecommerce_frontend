@@ -28,10 +28,10 @@ const Navbar = () => {
       </span>
       <span className="basis-1/4">
         <NavLink
-          to="/login"
+          to={isAuthectiacted?"/":"/login"}
           className="bg-white text-primary px-10  py-2 font-semibold shadow-md "
         >
-          Login
+          {isAuthectiacted?"Logout":"Login"}
         </NavLink>
       </span>
     </nav>

@@ -9,6 +9,12 @@ export default {
       colors: {
         primary: '#2874F0',
       },
+      screens: {
+        xs: "450px",
+      },
+      backgroundImage:{
+        'profile-pattern':"url('/src/assets/profile-pattern.jpg')"
+      }
     },
   },
   plugins: [],
