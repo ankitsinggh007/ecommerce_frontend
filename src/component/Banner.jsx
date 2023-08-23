@@ -21,11 +21,11 @@ function Banner() {
   };
 
   return (
-    <div className="w-[96%] pt-1 mx-auto ">
+    <div className="w-[96%] pt-1 mx-auto z-0 ">
       <Slider {...settings}>
         {bannerImage.map((item, index) => {
           return (
-            <div className="" key={index}>
+            <div className="z-2" key={index}>
               <img
                 className="object-fill mt-10 rounded-sm h-96 w-full"
                 src={item}

@@ -5,6 +5,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { fetchAllProduct } from '../slices/Product';
 import Banner from '../component/Banner';
+import Categories from "../component/Categories";
+import FeaturedList from '../component/FeaturedList';
 
 function Product({featured}) {
 const dispatch=useDispatch();
@@ -54,7 +56,12 @@ const productComponenet=fetchedProduct?.allProduct?.map((item,index)=>{
     //    } 
         
     // </Flex>
+    <>
+    <Categories/>
 <Banner/>
+<FeaturedList/>
+
+    </>
   )
 }
 

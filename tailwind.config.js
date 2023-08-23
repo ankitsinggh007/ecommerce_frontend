@@ -13,7 +13,8 @@ export default {
         xs: "450px",
       },
       backgroundImage:{
-        'profile-pattern':"url('/src/assets/profile-pattern.jpg')"
+        'profile-pattern':"url('/src/assets/profile-pattern.jpg')",
+        
       }
     },
   },
