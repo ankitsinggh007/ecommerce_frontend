@@ -8,6 +8,7 @@ export default {
     extend: {
       colors: {
         primary: '#2874F0',
+        secondary:'#F1F3F6'
       },
       screens: {
         xs: "450px",

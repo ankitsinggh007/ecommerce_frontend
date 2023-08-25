@@ -25,7 +25,7 @@ const Categories=()=> {
 ]
 
     return (
-    <div className='flex flex-row justify-evenly cursor-pointer  border-b-2 p-2'>
+    <div className='flex flex-row justify-evenly cursor-pointer bg-white shadow-1xl  border-b-2 p-1'>
         {categories.map((obj,index)=>{
             return(
                 <NavLink className='hover:text-primary  text-sm font-semibold ' onMouseOver={()=>{setVisible(true)}} onMouseLeave={()=>{setVisible(false)}} to={obj.link} key={index}>

@@ -12,6 +12,8 @@ function Banner() {
   console.log(index, index);
   const settings = {
     dots: true,
+    arrows: false,
+
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -21,13 +23,13 @@ function Banner() {
   };
 
   return (
-    <div className="w-[96%] pt-1 mx-auto z-0 ">
+    <div className="w-[99%]  mx-auto z-0 ">
       <Slider {...settings}>
         {bannerImage.map((item, index) => {
           return (
             <div className="z-2" key={index}>
               <img
-                className="object-fill mt-10 rounded-sm h-96 w-full"
+                className="object-fill mt-4 rounded-sm h-96 w-full"
                 src={item}
               />
             </div>

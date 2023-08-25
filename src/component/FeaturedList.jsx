@@ -1,13 +1,44 @@
 import Slider from "react-slick";
 import {formatePrice} from "../utils/FormatePrice"
+
+
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", backgroundColor: "gray",color:"red",position:"absolute",right:"1.1rem" }}
+
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: "block", backgroundColor: "gray",color:"red",position:"absolute",left:"1.2rem" }}
+      onClick={onClick}
+    />
+  );
+}
+
+
+
+
+
 export const Sliders = ({ items, banner }) => {
   const settings = {
-    dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
     initialSlide: 0,
+    nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 1024,
@@ -15,7 +46,6 @@ export const Sliders = ({ items, banner }) => {
           slidesToShow: 3,
           slidesToScroll: 3,
           infinite: true,
-          dots: true,
         },
       },
       {
@@ -36,31 +66,33 @@ export const Sliders = ({ items, banner }) => {
     ],
   };
   return (
-    <div className="p-4 shadow-lg w-full  ">
+    <div className="p-1 bg-white mt-2 w-fit border  mx-auto  ">
       <div className="flex">
         <div
-          className={`flex flex-col w-fit h-80 items-center  border border-indigo-200`}
+          className={`flex flex-col  h-80  items-center w-64  border border-indigo-200`}
           style={{
             backgroundImage: `url(${banner.img})`,
             backgroundPosition: "0px bottom",
             backgroundBlendMode: "luminosity",
             backgroundRepeat: "no-repeat",
+            // backgroundSize: "",
           }}
         >
-          <div className=" bg-white shadow-sm mt-14">
-            <span className="font-roboto  text-3xl line-clamp-2 tracking-widest leading-10 ">
+          <div className=" p-2 m-1 shadow-sm mt-14">
+            <span className="font-roboto  md:text-3xl line-clamp-2  leading-10 ">
               {banner.name}
             </span>
-            <button className="bg-primary text-white w-20 rounded-sm px-3 py-3">
+            <br/>
+            <button className="bg-primary text-white text-sm  md:text-xl  rounded-sm px-2 py-2">
               VIEW ALL
             </button>
           </div>
         </div>
-        <Slider className="w-[70%]  " {...settings}>
+        <Slider  {...settings} style={{display:"flex",position:"relative",justifyContent:"space-between",minWidth:"40vw", width:"80vw"}}>
           {items.map((obj, index) => {
             return (
               <div
-                className="flex flex-col  "
+                className="flex flex-col cursor-pointer sm:w-1 md:w-1/2 lg:w-1/4 "
                 key={index}
               >
                 <div key={index} className="h-56 ">
@@ -125,6 +157,9 @@ const FeaturedList = () => {
   return (
     <div>
       <br />
+      <Sliders items={items} banner={banner[0]} />
+      <Sliders items={items} banner={banner[0]} />
+      <Sliders items={items} banner={banner[0]} />
       <Sliders items={items} banner={banner[0]} />
     </div>
   );

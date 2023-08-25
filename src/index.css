@@ -13,8 +13,6 @@
   /* Specify built-in fonts */
   body {
     font-family: Arial, sans-serif;
+    background-color: #F1F3F6;
   }
   
-  *{
-    box-sizing: border-box;
-  }
