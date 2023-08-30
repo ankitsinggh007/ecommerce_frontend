@@ -34,9 +34,10 @@ export const findProduct=createAsyncThunk(
 export const fetchAllProduct=createAsyncThunk(
     'Product/fetchAllProduct',
     
-    async (page)=>{
+    async (attribute)=>{
         try {
-            const {data}=await axios.get(`api/v1/product?page=${page}`,
+            const {page,categories}=attribute;
+            const {data}=await axios.get(`api/v1/product?page=${page}&&categories=${categories}`,
         );
         return data;
         } catch (error) {

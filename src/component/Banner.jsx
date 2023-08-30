@@ -23,13 +23,13 @@ function Banner() {
   };
 
   return (
-    <div className="w-[99%]  mx-auto z-0 ">
-      <Slider {...settings}>
+    <div className="w-[99%] mx-auto z-0 ">
+      <Slider {...settings} >
         {bannerImage.map((item, index) => {
           return (
-            <div className="z-2" key={index}>
+            <div className="z-0" key={index}>
               <img
-                className="object-fill mt-4 rounded-sm h-96 w-full"
+                className="object-contain mt-4 z-0 rounded-sm h-96 w-full"
                 src={item}
               />
             </div>

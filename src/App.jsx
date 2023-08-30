@@ -11,12 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import UpdateStore from "./Pages/UpdateStore";
 import { loadUser } from "./slices/User";
 import { fetchAllProduct } from "./slices/Product";
-import ProductPage from "./component/ProductPage";
+import ProductPage from "./component/ProductDescription";
 import { SignUp, Login } from "./component/LoginSignUp Componenet";
 import LoginSignUp from "./Pages/LoginSignUp";
+import ProductList from "./component/ProductList";
 
-// axios.defaults.baseURL = "http://localhost:3000/";
-axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
+axios.defaults.baseURL = "http://localhost:3000/";
+// axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -41,7 +42,8 @@ const { loading, message, error,user,isAuthectiacted } = useSelector((state) => 
   return (
     <Routes>
       <Route path="/" element={<Home />}>
-        <Route path="/" element={<Product category="featured" />} />
+      <Route path="/" element={<Product category="featured" />} />
+        <Route path="/product" element={<ProductList/>} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />

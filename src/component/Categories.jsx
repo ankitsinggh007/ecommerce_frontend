@@ -4,45 +4,81 @@ import Fashion from '../assets/Categories/Fashion.png'
 import Electronic from '../assets/Categories/Electronic.png' 
 import Mobile from '../assets/Categories/Mobile.png' 
 import { NavLink } from 'react-router-dom'
-import Categories_List from './Categories_List'
+import CategoryDropdown from './Categories_List'
+import upwarArrow from "../assets/upwarArrow.png"
 const Categories=()=> {
   
-    const [visible,setVisible]=useState(false);
-    console.log(visible,"visible")
-    const categories=[{link:"/",name:'Grocery',img:Grocery},
-
-                      {link:"/",name:'Mobile',img:Mobile},
-                      
-                      {link:"/",name:'Fashion',img:Fashion,list:true, 
-                      tag:
-                      [
-                        {name:"men",list:true,tag:[{name:"accesories",list:true,tag:["ring","locket","sunglasses"]},"top","pants","footwear","watches"]},
-                        {name:"women",list:true,tag:["top","saree","footwear","watches","women's accessories"]},
-                        {name:"kids",list:true,tag:["kid's-top","kid's-pants","footwear","watches","kids's accessories"]}]},
-
-                      {link:"/",name:'Electronic',img:Electronic},
-
-]
-
+    const categories = [
+      { link: "/", name: "Grocery", img: Grocery, subcategories: [] },
+      { link: "/", name: "Mobile", img: Mobile, subcategories: [] },
+      {
+        link: "/",
+        name: "Fashion",
+        img: Fashion,
+        subcategories: [
+          {
+            name: "Men",
+            subcategories: [
+              {
+                name: "Accessories",
+                subcategories: [{ name: "Rings" }, { name: "Lockets" }],
+              },
+              { name: "Tops" ,subcategories:[] },
+              { name: "Pants" ,subcategories:[]},
+              { name: "Footwear" ,subcategories:[]},
+              { name: "Watches" ,subcategories:[]},
+            ],
+          },
+          {
+            name: "Women",
+            subcategories: [
+              { name: "Tops",subcategories:[] },
+              { name: "Sarees",subcategories:[] },
+              { name: "Footwear",subcategories:[] },
+              { name: "Watches",subcategories:[] },
+              { name: "Women's Accessories" ,subcategories:[]},
+            ],
+          },
+          {
+            name: "Kids",
+            subcategories: [
+              { name: "Kid's Tops" ,subcategories:[]},
+              { name: "Kid's Pants",subcategories:[] },
+              { name: "Footwear",subcategories:[] },
+              { name: "Watches",subcategories:[] },
+              { name: "Kids's Accessories",subcategories:[] },
+            ],
+          },
+        ],
+      },
+      { link: "/", name: "Electronic", img: Electronic, subcategories: [] },
+    ];
+    
     return (
     <div className='flex flex-row justify-evenly cursor-pointer bg-white shadow-1xl  border-b-2 p-1'>
-        {categories.map((obj,index)=>{
-            return(
-                <NavLink className='hover:text-primary  text-sm font-semibold ' onMouseOver={()=>{setVisible(true)}} onMouseLeave={()=>{setVisible(false)}} to={obj.link} key={index}>
-                <img className='w-20' src={obj.img} alt={obj.name}  />
-                <span >{obj.name}</span>
-                <br/>
-                <div className='relative'>
-                {
-                    obj.list && !visible && <span className='rotate-90 '>  &#8964;</span>                    
-                }
-                  {
-                    obj?.tag?.length>0 && visible &&  <Categories_List {...obj} />
-                  }
-                    </div>
-                </NavLink>                
-            )
-        })}
+        
+        <div className=" flex w-full justify-evenly">
+        {categories.map((category) => (
+          <NavLink 
+            key={category.name}
+            className="border border-indigo-200 flex flex-col hover:text-primary"
+            onMouseEnter={() => setActiveCategory(category)}
+          >
+            <img src={category.img} alt={category.name} />
+            <div className='flex justify-center items-center '>
+            {category.name}
+            {category.subcategories.length>0&&<span className='ml-1 '><img src={upwarArrow} className="h-4" /> </span>}
+            
+            <div className='relative'>
+            {/* {<CategoryDropdown categories={category.subcategories}/>} */}
+            </div>
+            
+            </div>
+          </NavLink>
+        ))}
+      </div>
+     
+
     </div>
   )
 }

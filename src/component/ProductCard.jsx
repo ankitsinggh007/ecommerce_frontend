@@ -5,6 +5,7 @@ import { formatePrice } from "../utils/FormatePrice";
 import { RatingDisplay } from "./RatingComponent";
 import { NavLink } from "react-router-dom";
 import outOfstock from "../assets/soldout/soldout-md.png"
+import {MdReviews} from "react-icons/md"
 
 function ProductCard({ item }) {
   console.log(item, "item");
@@ -15,37 +16,23 @@ function ProductCard({ item }) {
   return (
     <NavLink
      to={`products/${Products_Item._id}`}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "22rem",
-        maxHeight: "22rem",
-        minWidth: "17rem",
-        maxWidth: "17rem",
-        borderRadius: "1rem",
-        cursor: "pointer",
-      }}
+      className='border w-1/4  border-black justify-center p-3 m-1 bg-[#FFFFFF] flex flex-col justify-between  items-center'
     >
-      <Box
-        backgroundColor="whiteSmoke"
-        minHeight="75%"
-        minWidth="75%"
-        mt="20px"
-        display="flex"
-        pos="relative"
-        justifyContent="center"
-        alignItems="center"
-
-      >
-        <Image
-          pos="absolute"
+      <div className="w-full h-80 ">
+      <img 
+      className="object-contain h-full"
           src={Products_Item?.images[0]?.url}
-          maxWidth="100%"
-          p="20px"
-          _hover={{ transform: "scale(1.1)", transition: "transform .5s" }}
-          maxHeight="100%"
-        />
-         {
+          // className="object-cover"
+/>
+      </div>
+<div className="place-self-end flex flex-col  text-left w-full max-h-fit">
+<span className="truncate text-xl ">{Products_Item?.name}</span>
+<span className="line-clamp-2 text-ellipsis mt-1 text-gray-500 text-sm">{Products_Item?.description}</span>
+<span className="truncate text-lg font-semibold ">{formatePrice(Products_Item?.price)} </span>
+<span className="flex flex-row  "><MdReviews className="text-[#388E3C] text-2xl mr-1 "/> <span> ({Products_Item?.numOfReviews})</span> </span>
+
+</div>
+         {/* {
         
           Products_Item?.Stock<=0 && <Image color={"red"} src={outOfstock}
           objectFit='contain'
@@ -54,10 +41,9 @@ function ProductCard({ item }) {
           right="0"
          
 
-          />
-        }
-      </Box>
-      <Flex>
+        
+        } */}
+      {/* <Flex>
         <Text
           width="50%"
           whiteSpace="nowrap"
@@ -79,8 +65,8 @@ function ProductCard({ item }) {
         >
           {formatePrice(Products_Item?.price)}
         </Text>
-      </Flex>
-      <Text
+      </Flex> */}
+      {/* <Text
         textAlign="left"
         width="90%"
         fontSize=".9rem"
@@ -90,14 +76,14 @@ function ProductCard({ item }) {
         color="grey"
       >
         {Products_Item.description}
-      </Text>
+      </Text> */}
 
-      <Flex>
+      {/* <Flex>
         <RatingDisplay rating={Products_Item?.ratings} />
         <Text color="grey">({Products_Item.numOfReviews})</Text>
-      </Flex>
+      </Flex> */}
 
-      <Button
+      {/* <Button
         border="1px solid black"
         p="10px 0px 10px 0px"
         w="50%"
@@ -107,7 +93,7 @@ function ProductCard({ item }) {
         _hover={Products_Item?.Stock<=0?"disabled":""}
       >
         Add To Cart
-      </Button>
+      </Button> */}
     </NavLink>
   );
 }

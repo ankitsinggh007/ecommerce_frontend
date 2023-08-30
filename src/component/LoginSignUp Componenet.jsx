@@ -60,7 +60,7 @@ export function SignUp() {
   }, [message]);
 
   return (
-    <div className="flex border-2 border-indigo-200 w-1/2 mx-auto my-auto sm:mt-16 rounded-md shadow-md">
+    <div className="flex border-2 border-indigo-200 w-1/2 mx-auto my-auto sm:my-20 bg-white rounded-md shadow-md">
       <div className="bg-[#0087CE] basis-1/3 flex flex-col p-5">
         <span className="text-white text-Roboto text-left text-2xl line-clamp-2 font-semibold">
           Looks Like You're new here
@@ -160,7 +160,7 @@ export function Login() {
   }, [message, isAuthectiacted, Navigate]);
 
   return (
-    <div className="flex border-2 border-indigo-200 w-1/2 mx-auto my-auto sm:mt-16 rounded-md shadow-md">
+    <div className="flex border-2 border-indigo-200 w-1/2 mx-auto my-auto sm:my-20 bg-white rounded-md shadow-md">
       <div className="bg-[#1F7ECE] basis-1/3 flex flex-col p-5">
         <span className="text-white text-Roboto text-left text-2xl line-clamp-2 font-semibold">
           Looks Like You're new here
@@ -178,7 +178,7 @@ export function Login() {
         >
           <div>
             <input
-              className="border-b-2 w-80 pb-1 mt-5 border-gray-800 focus:border-primary focus:outline-none"
+              className="border-b-2 w-80 pb-1 mt-5 border-gray-800  focus:border-primary focus:outline-none "
               type="email"
               placeholder="Email"
               id="email"
