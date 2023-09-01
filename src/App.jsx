@@ -43,7 +43,7 @@ const { loading, message, error,user,isAuthectiacted } = useSelector((state) => 
     <Routes>
       <Route path="/" element={<Home />}>
       <Route path="/" element={<Product category="featured" />} />
-        <Route path="/product" element={<ProductList/>} />
+        <Route path="/product/:categories" element={<ProductList/>} />
 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
