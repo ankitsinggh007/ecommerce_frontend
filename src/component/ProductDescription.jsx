@@ -42,7 +42,8 @@ function ProductPage() {
           {/* <Flex  w={['90%','40%']}  justifyContent='space-evenly' flexDirection="column"> */}
 
           <div className="flex flex-col md:w-2/4 w-full  sm:border-t md:border-l border-gray-400 p-9 justify-evenly  items-start   ">
-            <span className="  flex text-2xl w-full mb-2  line-clamp-1  justify-center md:justify-start   font-bold ">
+            <span 
+            className="  flex text-2xl w-full mb-2  line-clamp-1  justify-center md:justify-start   font-bold ">
               {formateName(product?.name)}
             </span>
             <span className=" text-sm  flex justify-center md:justify-start line-clamp-3 border border-black   w-full text-gray-500 ">
