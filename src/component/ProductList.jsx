@@ -23,8 +23,8 @@ function ProductList() {
   return <div className="flex flex-col flex-wrap m-5 ">
 
     
-  <div className="flex flex-row flex-wrap m-5  justify-center">
-  <div className="border w-[86%] border-b-gray-300 text-gray-600 w- cursor-pointer flex flex-row justify-between">
+  <div className="flex flex-row border h-fit border-black flex-wrap m-5  justify-center">
+  <div className="border h-fit w-[86%] border-b-gray-300 text-gray-600 w- cursor-pointer flex flex-row justify-between">
       <div className="w-[40%] flex justify-between">
       <span className="hover:text-primary">Sort By </span>
       <span className="hover:text-primary">Price--High to Low</span>

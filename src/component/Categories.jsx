@@ -9,10 +9,10 @@ import upwarArrow from "../assets/upwarArrow.png"
 const Categories=()=> {
   
     const categories = [
-      { link: "/", name: "Grocery", img: Grocery, subcategories: [] },
-      { link: "/", name: "Mobile", img: Mobile, subcategories: [] },
+      { link: "/Grocery", name: "Grocery", img: Grocery, subcategories: [] },
+      { link: "/Mobile", name: "Mobile", img: Mobile, subcategories: [] },
       {
-        link: "/",
+        link: "/Fashion",
         name: "Fashion",
         img: Fashion,
         subcategories: [
@@ -51,7 +51,7 @@ const Categories=()=> {
           },
         ],
       },
-      { link: "/", name: "Electronic", img: Electronic, subcategories: [] },
+      { link: "/Electronic", name: "Electronic", img: Electronic, subcategories: [] },
     ];
     
     return (
@@ -60,6 +60,7 @@ const Categories=()=> {
         <div className=" flex w-full justify-evenly">
         {categories.map((category) => (
           <NavLink 
+          to={`/product/categories${category.link}`}
             key={category.name}
             className="border border-indigo-200 flex flex-col hover:text-primary"
             onMouseEnter={() => setActiveCategory(category)}

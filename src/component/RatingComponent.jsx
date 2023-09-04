@@ -7,12 +7,10 @@ import { Flex } from "@chakra-ui/react";
     const fullStars = fullStar.repeat(rating);
     const emptyStars = emptyStar.repeat(maxRating - rating);
     return (
-      <Flex fontSize={['1rem', '2rem', '2rem']}
-      
-      style={{alignSelf:'flex-start'}}>
+      <div className=" w-full text-4xl flex justify-center md:justify-start   ">
         <Flex color='#FF9F00'>{fullStars}</Flex>
         {emptyStars}
-      </Flex>
+      </div>
     );
   };
 

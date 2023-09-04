@@ -12,7 +12,7 @@ function ProductCard({ item }) {
   };
   return (
     <NavLink
-     to={`products/${Products_Item._id}`}
+     to={`/products/${Products_Item._id}`}
       className=' w-72 rounded-md    p-2 m-1 bg-[#FFFFFF] flex flex-col justify-between  items-center'
     >
       <div className="w-full h-56 flex flex-row justify-center ">
