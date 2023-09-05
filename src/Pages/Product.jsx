@@ -4,7 +4,7 @@ import ProductCard from '../component/ProductCard';
 import { useSelector,useDispatch } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import { fetchAllProduct } from '../slices/Product';
-import Banner from '../component/Banner';
+// import Banner from '../component/Banner';
 import Categories from "../component/Categories";
 import FeaturedList from '../component/FeaturedList';
 
