@@ -58,7 +58,7 @@ const productComponenet=fetchedProduct?.allProduct?.map((item,index)=>{
     // </Flex>
     <>
     <Categories/>
-<Banner/>
+{/* <Banner/> */}
 <FeaturedList/>
 
     </>
