@@ -16,8 +16,8 @@ import { SignUp, Login } from "./component/LoginSignUp Componenet";
 import LoginSignUp from "./Pages/LoginSignUp";
 import ProductList from "./component/ProductList";
 
-axios.defaults.baseURL = "http://localhost:3000/";
-// axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
+// axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.baseURL = "https://muddy-pike-cardigan.cyclic.app/";
 axios.defaults.withCredentials = true;
 
 function App() {
