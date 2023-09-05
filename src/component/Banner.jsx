@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import banner from "../assets/banner.png";
-import banner1 from "../assets/banner1.jpg";
-import banner2 from "../assets/banner2.jpg";
-import banner3 from "../assets/banner3.jpg";
-import banner4 from "../assets/banner4.jpg";
+import banner from "../assets/Banner.png";
+import banner1 from "../assets/Banner1.jpg";
+import banner2 from "../assets/Banner2.jpg";
+import banner3 from "../assets/Banner3.jpg";
+import banner4 from "../assets/Banner4.jpg";
 import Slider from "react-slick";
 
 function Banner() {
