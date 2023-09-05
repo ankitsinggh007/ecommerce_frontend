@@ -2,7 +2,7 @@ import { Flex, Text, Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RatingDisplay } from "./RatingComponent";
-import AddToCartCounter from "./addToCartCounter";
+import AddToCartCounter from "./addToCartCounter.js";
 import ImagesViewer from "./ImageViewer";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
