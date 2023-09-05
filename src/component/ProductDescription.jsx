@@ -2,7 +2,7 @@ import { Flex, Text, Box } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RatingDisplay } from "./RatingComponent";
-import AddToCartCounter from "./AddToCartCounter.jsx";
+import AddToCartCounter from "./addToCartCounter";
 import ImagesViewer from "./ImageViewer";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
@@ -11,8 +11,14 @@ import { productDetails } from "../slices/Product";
 import { TbTruckReturn, TbTruckDelivery } from "react-icons/tb";
 import { Icon } from "@chakra-ui/react";
 import { formateName } from "../utils/FormateName";
+import {FcEditImage} from "react-icons/fc"
+import AddReview from "./AddReview";
 function ProductPage() {
   const [Product, setProduct] = useState();
+  const [ShowReview,setShowReview]=useState(false);
+  const [Rating, setRating] = useState({rating:"",review:""});
+  
+
   const { id } = useParams();
   console.log(id);
   const dispatch = useDispatch();
@@ -25,7 +31,7 @@ function ProductPage() {
     console.log("inside useEffect");
     dispatch(productDetails(id));
   }, [dispatch]);
-
+  
   return (
     <Box>
       {loading ? (
@@ -50,8 +56,13 @@ function ProductPage() {
               {product?.description}
             </span>
             <RatingDisplay rating={product?.ratings} />
-            <hr className="border border-gray-300 m-2" />
+            <hr className="border border-gray-300 m-2 " />
+           <div className="flex relative flex-row border border-black items-center justify-between">
+            <span className="text-2xl cursor-pointer mr-2" onClick={()=>setShowReview(!ShowReview)}>Add review</span>
+            <FcEditImage onClick={()=>setShowReview(!ShowReview)} className="text-2xl"/>
 
+              { ShowReview && <AddReview ShowReview={ShowReview}setShowReview={setShowReview} setRating={setRating} Rating={Rating}/>}
+            </div>
             <span className="text-xl">{formatePrice(product?.price)}</span>
 
             <AddToCartCounter stock={product?.Stock} id={product?._id} />
